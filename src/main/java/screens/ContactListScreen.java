@@ -8,22 +8,24 @@ public class ContactListScreen extends BaseScreen{
     public ContactListScreen(AppiumDriver<MobileElement> driver) {
         super(driver);
     }
+
     @FindBy(xpath = "//*[@resource-id='com.sheygam.contactapp:id/action_bar']/android.widget.TextView")
-    MobileElement activityTextVew;
+    MobileElement activityTextView;
 
-    @FindBy(xpath = "//*[")
+    @FindBy(xpath = "//*[@content-desc='More options']")
     MobileElement moreOption;
+    @FindBy(id="com.sheygam.contactapp:id/title")
+    MobileElement logoutButton;
 
-    @FindBy()
-    MobileElement logOutButton;
 
-    public AuthenticationScreen logOut(){
-        moreOption.click();
-        logOutButton.click();
-        return new AuthenticationScreen (driver);
+    public boolean isContactListActivityDisplayed (){
+        return isShouldHave(activityTextView,"Contact list",15);
     }
 
-    public boolean isContactListActivityDisplayed(){
-        return isShouldHave(activityTextVew,"Contact list", 20);
+    public AuthenticationScreen logout(){
+        moreOption.click();
+        logoutButton.click();
+
+        return new AuthenticationScreen(driver);
     }
 }

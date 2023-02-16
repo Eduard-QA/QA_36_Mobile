@@ -14,6 +14,7 @@ public class BaseScreen {
         this.driver = driver;
         PageFactory.initElements(new AppiumFieldDecorator(driver),this);
     }
+
     public void type(MobileElement element,String text){
         if(text!=null){
             element.click();
@@ -21,8 +22,9 @@ public class BaseScreen {
             element.sendKeys(text);
         }
     }
+
     public void should(MobileElement element,int time){
-        new WebDriverWait(driver, time)
+        new WebDriverWait(driver,time)
                 .until(ExpectedConditions.visibilityOf(element));
     }
 

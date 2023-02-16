@@ -8,38 +8,35 @@ import org.testng.annotations.Test;
 import screens.AuthenticationScreen;
 import screens.ContactListScreen;
 
+import java.util.Random;
 
-public class LoginTests extends AppiumConfig {
-
+public class RegistrationTests extends AppiumConfig {
     @Test
-    public void loginSuccess(){
+    public void RegistrationSuccess(){
+        Random random = new Random();
+        int i = random.nextInt(1000);
+        String email = "foxi" + i + "@gmail.com";
 
         boolean res = new AuthenticationScreen(driver)
-                .fillEmail("aqa@mail.ru")
+                .fillEmail(email)
                 .fillPassword("aQa$1234")
-                .submitLogin()
+                .submitRegistration()
                 .isContactListActivityDisplayed();
         Assert.assertTrue(res);
-        // logout
 
     }
 
     @Test
     public void loginSuccessModel(){
-        Auth auth = Auth.builder().email("aqa@mail.ru").password("aQa$1234").build();
+        Random random = new Random();
+        int i = random.nextInt(1000);
 
+        Auth auth = Auth.builder().email("foxi" + i + "@gmail.com").password("aQa$1234").build();
         boolean res = new AuthenticationScreen(driver)
                 .fillLoginRegistrationForm(auth)
-                . submitLogin()
+                . submitRegistration()
                 .isContactListActivityDisplayed();
         Assert.assertTrue(res);
-        // logout
-
-
-    }
-    @Test(enabled = false)
-    public void loginWrongEmail(){
-        // test sc
 
     }
 
