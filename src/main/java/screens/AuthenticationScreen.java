@@ -2,27 +2,37 @@ package screens;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import model.Auth;
-
+import models.Auth;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 public class AuthenticationScreen extends BaseScreen{
     public AuthenticationScreen(AppiumDriver<MobileElement> driver) {
         super(driver);
     }
 
+    @FindBy(xpath = "//*[@resource-id='com.sheygam.contactapp:id/action_bar']/android.widget.TextView")
+    MobileElement activityTextView;
     @FindBy(xpath = "//*[@resource-id ='com.sheygam.contactapp:id/inputEmail']")
     MobileElement emailEditText;
     @FindBy(id="com.sheygam.contactapp:id/inputPassword")
     MobileElement passwordEditText;
     @FindBy(xpath = "//*[@text='LOGIN']")
     MobileElement loginButton;
-    @FindBy(id="com.sheygam.contactapp:id/regBtn")
+    @FindBy (id="com.sheygam.contactapp:id/regBtn")
     MobileElement registrationButton;
+
+    public ContactListScreen submitRegistration(){
+        registrationButton.click();
+        return new ContactListScreen(driver);
+    }
 
     public AuthenticationScreen fillLoginRegistrationForm(Auth auth){
 
-        should(emailEditText,15);
+        should(emailEditText,30);
         type(emailEditText, auth.getEmail());
         type(passwordEditText, auth.getPassword());
 
@@ -30,7 +40,7 @@ public class AuthenticationScreen extends BaseScreen{
     }
 
     public AuthenticationScreen fillEmail(String  email){
-        should(emailEditText,15);
+        should(emailEditText,20);
         type(emailEditText,email);
         return this ;
     }
@@ -44,9 +54,18 @@ public class AuthenticationScreen extends BaseScreen{
         return new ContactListScreen(driver);
     }
 
-    public ContactListScreen submitRegistration() {
+    public AuthenticationScreen submitLoginNegative(){
         driver.hideKeyboard();
-        registrationButton.click();
-        return new ContactListScreen(driver);
+        loginButton.click();
+        return this;
+    }
+    public AuthenticationScreen isErrorMessageContainsText(String text){
+        Alert alert = new WebDriverWait(driver,20)
+                .until(ExpectedConditions.alertIsPresent());
+        driver.switchTo().alert();
+        Assert.assertTrue(alert.getText().contains(text));
+        alert.accept();
+
+        return this;
     }
 }

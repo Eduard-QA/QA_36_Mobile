@@ -1,7 +1,7 @@
 package tests;
 
 import config.AppiumConfig;
-import model.Auth;
+import models.Auth;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -33,15 +33,17 @@ public class LoginTests extends AppiumConfig {
                 . submitLogin()
                 .isContactListActivityDisplayed();
         Assert.assertTrue(res);
-        // logout
-
-
     }
-    @Test(enabled = false)
+    @Test
     public void loginWrongEmail(){
-        // test sc
+        Auth auth = Auth.builder().email("aqamail.ru").password("aQa$1234").build();
 
+        new AuthenticationScreen(driver)
+                .fillLoginRegistrationForm(auth)
+                .submitLoginNegative()
+                .isErrorMessageContainsText("Login or Password incorrect");
     }
+
 
     @AfterMethod
     public void postCondition(){

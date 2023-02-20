@@ -1,7 +1,7 @@
 package tests;
 
 import config.AppiumConfig;
-import model.Auth;
+import models.Auth;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;

@@ -22,6 +22,14 @@ public class BaseScreen {
             element.sendKeys(text);
         }
     }
+    public void type1(MobileElement element,String text){
+        if(text!=null){
+            element.click();
+            element.clear();
+            element.sendKeys(text);
+        }
+        driver.hideKeyboard();
+    }
 
     public void should(MobileElement element,int time){
         new WebDriverWait(driver,time)
@@ -32,4 +40,6 @@ public class BaseScreen {
         return new WebDriverWait(driver,time)
                 .until(ExpectedConditions.textToBePresentInElement(element,text));
     }
+
+
 }

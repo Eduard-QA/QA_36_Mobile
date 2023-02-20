@@ -30,8 +30,8 @@ public class AppiumConfig {
 
     }
 
-    @AfterSuite
-    public void tearDown(){
-        driver.quit();
-    }
+   // @AfterSuite
+   // public void tearDown(){
+    //   driver.quit();
+  //  }
 }
