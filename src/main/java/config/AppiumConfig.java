@@ -26,12 +26,12 @@ public class AppiumConfig {
         capabilities.setCapability("appActivity", ".SplashActivity");
         capabilities.setCapability("automationName", "Appium");
 
-        driver=new AppiumDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
+        driver = new AppiumDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
     }
 
-   // @AfterSuite
-   // public void tearDown(){
-    //   driver.quit();
-  //  }
+    @AfterSuite
+    public void tearDown() {
+       // driver.quit();
+    }
 }
